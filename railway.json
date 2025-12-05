@@ -1,6 +1,5 @@
 {
   "build": {
-    "builder": "staticfile"
-  },
-  "start": "caddy file-server --root ."
+    "builder": "static"
+  }
 }

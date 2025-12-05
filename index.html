@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Kenya PayBill Numbers 2025 – KPLC, GoTV, Betika, Nairobi Water & 8000+ more. Fast, clean, updated weekly."/>
+  <title>PayBill254 – Kenya PayBill Numbers 2025 (KPLC • GoTV • Betika)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>Search</text></svg>">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>PAYBILL<span class="green">254</span></h1>
+      <p class="tagline">Kenya’s fastest PayBill search – 2025</p>
+    </header>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Type business name… e.g. KPLC, GoTV, Betika" autocomplete="off" autofocus />
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <div class="popular">
+      <p>Popular now:</p>
+      <div class="tags">
+        <span class="tag">KPLC</span>
+        <span class="tag">GoTV</span>
+        <span class="tag">Betika</span>
+        <span class="tag">Nairobi Water</span>
+        <span class="tag">Startimes</span>
+        <span class="tag">Rent</span>
+      </div>
+    </div>
+
+    <div id="results" class="results"></div>
+
+    <section class="why">
+      <h3>Why millions use PayBill254</h3>
+      <ul>
+        <li>Lightning fast – works on 2G/3G</li>
+        <li>No annoying pop-ups</li>
+        <li>Updated every week automatically</li>
+        <li>Verified PayBills only</li>
+      </ul>
+    </section>
+
+    <div class="premium-banner">
+      <p>Remove ads + save your favorite PayBills → <strong>KSh 150/month</strong></p>
+      <button class="premium-btn">Go Premium</button>
+    </div>
+
+    <footer>
+      <p>© 2025 PayBill254 – Made in Kenya Kenya</p>
+    </footer>
+  </div>
+
+  <script>
+    // Load PayBills
+    let paybills = [];
+    fetch('paybills.json')
+      .then(res => res.json())
+      .then(data => {
+        paybills = data;
+        console.log("Loaded", paybills.length, "PayBills");
+      });
+
+    // Search function
+    function searchPaybill(query) {
+      if (!query.trim()) {
+        document.getElementById('results').innerHTML = '';
+        return;
+      }
+      const results = paybills
+        .filter(item => item.name.toLowerCase().includes(query.toLowerCase()))
+        .slice(0, 10);
+
+      const container = document.getElementById('results');
+      if (results.length === 0) {
+        container.innerHTML = `<p>No PayBill found for "${query}"</p>`;
+        return;
+      }
+
+      container.innerHTML = results.map(item => `
+        <div class="result-card">
+          <h3>${item.name}</h3>
+          <p class="paybill"><strong>PayBill:</strong> ${item.paybill}</p>
+          <p class="account"><strong>Account:</strong> ${item.account}</p>
+          <button class="copy-btn" onclick="navigator.clipboard.writeText('${item.paybill}')">Copy PayBill</button>
+        </div>
+      `).join('');
+    }
+
+    // Event listeners
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchPaybill(e.target.value);
+    });
+
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      searchPaybill(document.getElementById('searchInput').value);
+    });
+
+    document.querySelectorAll('.tag').forEach(tag => {
+      tag.addEventListener('click', () => {
+        document.getElementById('searchInput').value = tag.textContent;
+        searchPaybill(tag.textContent);
+      });
+    });
+  </script>
+</body>
+</html>
